@@ -49,6 +49,24 @@
   <div class="d-flex w-100 justify-content-between">
     <button type="button" class="btn btn-success">Favorite</button>
   </div>
+  <div class="d-flex w-100 justify-content-center">
+    <div class="text-muted">Data from Binance.com</div>
+  </div>
+  <div class="card bg-trademarkcolor text-white">
+    <div class="col-6">
+      <ul>
+        <li>Open Price</li>
+        <li>High Price: 100</li>
+        <li>Low Price: 100</li>
+        <li>Volume: 8913</li>
+        <li>Quote Volume: 8913</li>
+      </ul>
+    </div>
+    <div class="col-6"></div>
+  </div>
+  <div style="height: 200px"></div>
+
+  <app-comparison-table> </app-comparison-table>
 </div>
 <div class="container px-5 py-5 flex-column" *ngIf="isInvalid && !isLoading">
   <div class="alert alert-danger text-center text-dark" role="alert">

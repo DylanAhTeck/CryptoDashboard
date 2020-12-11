@@ -9,11 +9,12 @@
   display: inline;
   text-align: center;
 }
-.border-trademarkcolor {
+
+.border-trademarkcolour {
   border: 2px solid #1e4be1;
 }
 
-.text-trademarkcolor {
+.text-trademarkcolour {
   color: #1e4be1;
 }
 

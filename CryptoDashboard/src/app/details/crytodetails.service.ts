@@ -23,9 +23,9 @@ export class CrytodetailsService {
     this.binanceURL = environment.BINANCE_URL;
   }
 
-  getLatestPrice(ticker: String): Observable<LatestPrice> {
-    const endpoint = "/api/v3/ticker/price"
-    const response = this.http.get<LatestPrice>(`${this.binanceURL}/api/v3/ticker/price`, this.httpOptions)
+  getLatestPrice(symbol: String): Observable<LatestPrice> {
+    const endpoint = "/api/v3/ticker/24hr"
+    const response = this.http.get<LatestPrice>(`${this.binanceURL}${endpoint}/symbol=${symbol}`, this.httpOptions)
     return response;
   }
 
