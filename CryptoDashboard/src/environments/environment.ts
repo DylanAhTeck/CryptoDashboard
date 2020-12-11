@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  BINANCE_URL: "https://api.binance.com",
+  BINANCE_APIKEY: "yqywzirC2UNFtsqBKaipIZd3MsOgP1E2lI9ms84RgSGFy6AxmZUygjEJNQgaQLs7"
 };
 
 /*
