@@ -1,1 +1,37 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-trademarkcolor">
+  <a class="navbar-brand font-weight-bold" href="#">RelayPay CrytoBoard</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
+      <li class="nav-item text-right">
+        <a
+          class="nav-link text-right"
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active btn btn-outline-light pr-2 text-right text-white bg-transparent rounded-pill rounded-sm"
+        >
+          Search
+        </a>
+      </li>
+      <li class="nav-item text-right">
+        <a
+          class="nav-link"
+          routerLink="/Compare"
+          routerLinkActive="active btn btn-outline-light pr-2 text-right text-white bg-transparent rounded-pill rounded-sm"
+          >Compare</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
