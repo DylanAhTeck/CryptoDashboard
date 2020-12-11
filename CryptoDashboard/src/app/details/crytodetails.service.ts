@@ -48,4 +48,21 @@ export class CryptodetailsService {
     return $response;
   }
 
+  getKlineData(symbol: string): Observable<Object[]> {
+    const params = new HttpParams()
+      .set('symbol', symbol)
+      .set('interval', '1d');
+
+    const endpoint = "/api/v3/klines"
+    console.log("HERE!")
+    const $response = this.http
+      .get<Object[]>(`${this.binanceURL}${endpoint}`, { params })
+      .pipe(catchError(error => {
+        console.error("Error: ", error);
+        return throwError(error)
+      }))
+
+    return $response;
+  }
+
 }

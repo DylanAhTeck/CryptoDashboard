@@ -13,6 +13,7 @@ import { DetailsComponent } from './details/details.component';
 import { ComparisonTableComponent } from './comparison-table/comparison-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
