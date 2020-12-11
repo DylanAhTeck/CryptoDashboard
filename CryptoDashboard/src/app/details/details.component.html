@@ -1,28 +1,25 @@
-<!-- <div *ngIf="isLoading" class="d-flex justify-content-center w-100 pt-5">
-  <mat-spinner></mat-spinner>
-</div> -->
-
+<div *ngIf="isLoading" class="d-flex justify-content-center w-100 pt-5">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
 <!-- *ngIf="!isInvalid && !isLoading" -->
-<div class="container px-sm-5 py-2 flex-column">
-  <alert></alert>
+<div class="container px-sm-5 py-2 flex-column" *ngIf="!isLoading">
+  <!-- <alert></alert> -->
   <div class="d-flex w-100 p-0 justify-content-between">
     <div>
       <h1 class="mb-0">
-        LTCBTC
+        {{ latestPrice.symbol }}
         <!-- {{ description.ticker 1.00 }} -->
-        <i
-          [ngClass]="onWatchlist ? 'fa fa-star text-warning' : 'fa fa-star-o'"
-          (click)="toggleSave()"
-        ></i>
       </h1>
     </div>
-    <div [ngClass]="isPositive ? 'text-success' : 'text-danger'">
+    <div [ngClass]="isPositive() ? 'text-success' : 'text-danger'">
       <h1 class="mb-0">
         <i
-          [ngClass]="isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down'"
+          [ngClass]="isPositive() ? 'fa fa-caret-up' : 'fa fa-caret-down'"
           aria-hidden="true"
         ></i>
-        123.35 AUSD
+        {{ trimNumber(latestPrice.lastPrice) }}
         <!-- {{ latestPrice.last }} -->
       </h1>
     </div>
@@ -34,14 +31,16 @@
     </div>
     <div
       class="d-inline"
-      [ngClass]="isPositive ? 'text-success' : 'text-danger'"
+      [ngClass]="isPositive() ? 'text-success' : 'text-danger'"
     >
       <h3>
         <i
-          [ngClass]="isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down'"
+          [ngClass]="isPositive() ? 'fa fa-caret-up' : 'fa fa-caret-down'"
           aria-hidden="true"
         ></i>
-        4.51%
+        {{ trimNumber(latestPrice.priceChange) }} ({{
+          trimNumber(latestPrice.priceChangePercent)
+        }}%)
         <!-- {{ change.toFixed(2) }} ({{ changePercentage.toFixed(2) }}%) -->
       </h3>
     </div>
@@ -68,8 +67,8 @@
 
   <app-comparison-table> </app-comparison-table>
 </div>
-<div class="container px-5 py-5 flex-column" *ngIf="isInvalid && !isLoading">
+<!-- <div class="container px-5 py-5 flex-column" *ngIf="isInvalid && !isLoading">
   <div class="alert alert-danger text-center text-dark" role="alert">
     No results found. Please enter valid Ticker.
   </div>
-</div>
+</div> -->

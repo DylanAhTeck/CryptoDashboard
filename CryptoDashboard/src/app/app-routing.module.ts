@@ -4,7 +4,7 @@ import { SearchFormComponent } from './search-form/search-form.component'
 import { DetailsComponent } from './details/details.component'
 
 const routes: Routes = [{ path: '', component: SearchFormComponent },
-{ path: 'details/:ticker', component: DetailsComponent }
+{ path: 'details/:symbol', component: DetailsComponent }
 ];
 
 @NgModule({
