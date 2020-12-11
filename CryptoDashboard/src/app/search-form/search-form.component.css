@@ -9,12 +9,12 @@
   display: inline;
   text-align: center;
 }
-.purple-bg {
-  border: 2px solid #6959f2;
+.border-trademarkcolor {
+  border: 2px solid #1e4be1;
 }
 
-.purple-text {
-  color: #6959f2;
+.text-trademarkcolor {
+  color: #1e4be1;
 }
 
 .max-width {
