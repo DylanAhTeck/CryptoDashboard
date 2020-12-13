@@ -5,6 +5,8 @@ import { LatestPrice } from '../Interfaces/LatestPrice'
 import { Observable, throwError, interval } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import HC_stock from 'highcharts/modules/stock';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+
 HC_stock(Highcharts);
 
 @Component({
@@ -17,8 +19,13 @@ export class DetailsComponent implements OnInit {
 
   isLoading: boolean = true;
   isInvalid: boolean = false;
+  showComparison: boolean = false;
+
   symbol: string
   latestPrice: LatestPrice
+
+  faCaretUp = faCaretUp
+  faCaretDown = faCaretDown
 
 
   Highcharts: typeof Highcharts = Highcharts; // required
@@ -38,6 +45,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getCrytoDetails(this.symbol)
 
+    //TODO: add this https://stackblitz.com/edit/highcharts-angular-stock-indicators
     this.getHighchartData(this.symbol).subscribe(value => {
       const data = []
       value.forEach(dataPoint => {
@@ -47,7 +55,7 @@ export class DetailsComponent implements OnInit {
       })
       this.chartOptions = {
         subtitle: {
-          text: `${this.symbol.toUpperCase()} Price (AUD)`
+          text: `${this.symbol.toUpperCase()} Price`
         },
         xAxis: {
           type: "datetime",
@@ -83,18 +91,21 @@ export class DetailsComponent implements OnInit {
   getCrytoDetails(symbol: string) {
     this.cryptodetailsService.getLatestPrice(symbol).subscribe((data) => {
       this.latestPrice = data
-      console.log(data)
       this.isLoading = false
     }
     )
   }
 
   trimNumber(number: string): string {
-    return parseFloat(number).toFixed(2)
-
+    const trimmed = parseFloat(number).toFixed(2)
+    return parseFloat(trimmed).toLocaleString('en')
   }
 
   isPositive(): boolean {
     return parseFloat(this.latestPrice.priceChange) > 0
+  }
+
+  toggleShowComparison() {
+    this.showComparison = !this.showComparison
   }
 }

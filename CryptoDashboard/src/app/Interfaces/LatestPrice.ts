@@ -4,4 +4,8 @@ export interface LatestPrice {
     priceChangePercent: string
     lastPrice: string
     bidPrice: string
+    openPrice: string
+    highPrice: string
+    lowPrice: string
+    volume: string
 }

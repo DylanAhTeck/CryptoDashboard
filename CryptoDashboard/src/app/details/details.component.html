@@ -15,11 +15,8 @@
     </div>
     <div [ngClass]="isPositive() ? 'text-success' : 'text-danger'">
       <h1 class="mb-0">
-        <i
-          [ngClass]="isPositive() ? 'fa fa-caret-up' : 'fa fa-caret-down'"
-          aria-hidden="true"
-        ></i>
-        {{ trimNumber(latestPrice.lastPrice) }}
+        <fa-icon [icon]="isPositive() ? faCaretUp : faCaretDown"></fa-icon>
+        ${{ trimNumber(latestPrice.lastPrice) }}
         <!-- {{ latestPrice.last }} -->
       </h1>
     </div>
@@ -34,11 +31,8 @@
       [ngClass]="isPositive() ? 'text-success' : 'text-danger'"
     >
       <h3>
-        <i
-          [ngClass]="isPositive() ? 'fa fa-caret-up' : 'fa fa-caret-down'"
-          aria-hidden="true"
-        ></i>
-        {{ trimNumber(latestPrice.priceChange) }} ({{
+        <fa-icon [icon]="isPositive() ? faCaretUp : faCaretDown"></fa-icon>
+        ${{ trimNumber(latestPrice.priceChange) }} ({{
           trimNumber(latestPrice.priceChangePercent)
         }}%)
         <!-- {{ change.toFixed(2) }} ({{ changePercentage.toFixed(2) }}%) -->
@@ -52,18 +46,43 @@
     <div class="text-muted">Data from Binance.com</div>
   </div>
   <div class="w-100 row">
-    <div class="col-3">
+    <div class="col-md-3">
       <div class="card h-100">
-        <ul>
+        <div
+          class="card text-center h-25 text-light py-2 m-2 bg-trademarkcolor"
+        >
+          <h5 class="font-gordita-bold">Open Price</h5>
+          <p class="pb-0">${{ trimNumber(latestPrice.openPrice) }}</p>
+        </div>
+        <div
+          class="card text-center h-25 text-light py-2 m-2 bg-trademarkcolor"
+        >
+          <h5 class="font-gordita-bold">High Price</h5>
+          <p class="pb-0">${{ trimNumber(latestPrice.highPrice) }}</p>
+        </div>
+        <div
+          class="card text-center h-25 text-light py-2 m-2 bg-trademarkcolor"
+        >
+          <h5 class="font-gordita-bold">Low Price</h5>
+          <p class="pb-0">${{ trimNumber(latestPrice.lowPrice) }}</p>
+        </div>
+        <div
+          class="card text-center h-25 text-light py-2 m-2 bg-trademarkcolor"
+        >
+          <h5 class="font-gordita-bold">Volume</h5>
+          <p class="pb-0">{{ trimNumber(latestPrice.volume) }}</p>
+        </div>
+
+        <!-- <ul>
           <li>Open Price</li>
           <li>High Price: 100</li>
           <li>Low Price: 100</li>
           <li>Volume: 8913</li>
           <li>Quote Volume: 8913</li>
-        </ul>
+        </ul> -->
       </div>
     </div>
-    <div class="col-9">
+    <div class="col-md-9">
       <div class="card h-100">
         <!-- <div class="col-6">
     </div> -->
@@ -80,9 +99,16 @@
     </div>
   </div>
 
-  <div style="height: 200px"></div>
+  <div style="height: 50px"></div>
 
-  <app-comparison-table> </app-comparison-table>
+  <div class="py-2">
+    <a (click)="toggleShowComparison()" routerLinkActive="active">{{
+      showComparison ? "Compare other sources" : "Hide other sources"
+    }}</a>
+    <div *ngIf="showComparison">
+      <app-comparison-table> </app-comparison-table>
+    </div>
+  </div>
 </div>
 <!-- <div class="container px-5 py-5 flex-column" *ngIf="isInvalid && !isLoading">
   <div class="alert alert-danger text-center text-dark" role="alert">
