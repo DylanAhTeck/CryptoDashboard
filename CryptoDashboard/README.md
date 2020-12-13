@@ -2,6 +2,35 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
 
+CrytoDashboard provides a search functionality to retrieve crytocurrency data queried from the Binance API according to a symbol.
+
+Some valid symbols:
+
+BTCAUD
+LTCAUD
+ETHAUD
+XRPAUD
+
+## Setup
+
+Clone git repository or open Zip file
+
+```bash
+$ git clone https://github.com/DylanAhTeck/FaaS.git
+```
+
+Navigate into CrytoDashboard root directory and download dependencies
+
+```bash
+$ npm i
+```
+
+Run development server and navigate to http://localhost:4200/
+
+```bash
+$ ng serve
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
