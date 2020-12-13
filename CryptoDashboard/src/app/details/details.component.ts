@@ -55,11 +55,9 @@ export class DetailsComponent implements OnInit {
 
   ngOnDestroy() {
     if (this.dateInterval) {
-      console.log("IN CLEAR1")
       clearInterval(this.dateInterval);
     }
     if (this.updateInterval) {
-      console.log("IN CLEAR2")
       clearInterval(this.updateInterval);
     }
   }
