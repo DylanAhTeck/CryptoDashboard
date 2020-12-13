@@ -28,6 +28,9 @@ export class DetailsComponent implements OnInit {
   faCaretUp = faCaretUp
   faCaretDown = faCaretDown
 
+  dateInterval
+  updateInterval
+
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'stockChart'; // optional string, defaults to 'chart'
   chartOptions: Highcharts.Options = {
@@ -41,10 +44,24 @@ export class DetailsComponent implements OnInit {
     private cryptodetailsService: CryptodetailsService) {
     this.symbol = this.activatedRoute.snapshot.paramMap.get('symbol');
 
-    setInterval(() => {
+    this.dateInterval = setInterval(() => {
       this.date = new Date()
     }, 1000)
 
+    this.updateInterval = setInterval(() => {
+      this.getCrytoDetails(this.symbol)
+    }, 1000 * 15)
+  }
+
+  ngOnDestroy() {
+    if (this.dateInterval) {
+      console.log("IN CLEAR1")
+      clearInterval(this.dateInterval);
+    }
+    if (this.updateInterval) {
+      console.log("IN CLEAR2")
+      clearInterval(this.updateInterval);
+    }
   }
 
   getSymbolName(): string {
