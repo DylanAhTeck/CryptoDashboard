@@ -31,7 +31,7 @@ export class CompareService {
 
   getBTCLatestPrice(symbol: string): Observable<BTCLatestPrice> {
 
-    if (symbol.length != 6) return null
+    //if (symbol.length != 6) return null
 
     const marketId = symbol.substring(0, 3) + '-' + symbol.substring(3)
     const url = `https://api.btcmarkets.net/v3/markets/${marketId}/ticker`

@@ -1,4 +1,4 @@
-export interface LatestPrice {
+export interface BinanceLatestPrice {
     symbol: string
     priceChange: string
     priceChangePercent: string

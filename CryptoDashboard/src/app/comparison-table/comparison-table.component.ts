@@ -8,7 +8,7 @@ import { PriceBySource } from '../Interfaces/PriceBySource'
 })
 export class ComparisonTableComponent implements OnInit {
 
-  tableData: [PriceBySource]
+  tableData: PriceBySource[] = []
   constructor(private compareService: CompareService) { }
 
   @Input() symbol: string
@@ -54,5 +54,10 @@ export class ComparisonTableComponent implements OnInit {
         this.tableData.push(row)
       }
     )
+  }
+
+  trimNumber(number: string): string {
+    const trimmed = parseFloat(number).toFixed(2)
+    return parseFloat(trimmed).toLocaleString('en')
   }
 }

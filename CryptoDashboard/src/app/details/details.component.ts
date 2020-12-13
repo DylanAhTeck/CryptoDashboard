@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { CryptodetailsService } from './crytodetails.service'
-import { LatestPrice } from '../Interfaces/LatestPrice'
+import { BinanceLatestPrice } from '../Interfaces/BinanceLatestPrice'
 import { Observable, throwError, interval } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import HC_stock from 'highcharts/modules/stock';
@@ -22,7 +22,7 @@ export class DetailsComponent implements OnInit {
   showComparison: boolean = false;
 
   symbol: string
-  latestPrice: LatestPrice
+  latestPrice: BinanceLatestPrice
 
   faCaretUp = faCaretUp
   faCaretDown = faCaretDown

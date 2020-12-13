@@ -1,6 +1,7 @@
-<div class="card">
-  <table class="table bg-white">
-    <thead class="bg-trademarkcolor-secondary text-light">
+<!-- <div class="card"> -->
+<div class="table-responsive">
+  <table class="table bg-white w-100 table-hover">
+    <thead class="bg-trademarkcolor text-light">
       <tr>
         <th scope="col">Source</th>
         <th scope="col">Price</th>
@@ -9,13 +10,21 @@
       </tr>
     </thead>
     <tbody>
-      <div *ngFor="let row of tableData"></div>
-      <tr>
-        <th scope="row">Binance</th>
-        <td>$132 AUD</td>
-        <td>1.5%</td>
-        <td>@mdo</td>
+      <tr *ngFor="let row of tableData">
+        <th scope="row">
+          <a [href]="row.sourceUrl">
+            {{ row.source }}
+          </a>
+        </th>
+        <td>${{ trimNumber(row.price) }} AUD</td>
+        <td>
+          {{ row.priceChange != null ? trimNumber(row.priceChange) : "N/A" }}
+        </td>
+        <td>
+          <a [href]="row.link">{{ row.link }}</a>
+        </td>
       </tr>
     </tbody>
+    <!-- </table> -->
   </table>
 </div>

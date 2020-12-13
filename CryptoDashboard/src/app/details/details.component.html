@@ -4,7 +4,7 @@
   </div>
 </div>
 <!-- *ngIf="!isInvalid && !isLoading" -->
-<div class="container px-sm-5 py-2 flex-column" *ngIf="!isLoading">
+<div class="container px-lg-5 py-2 flex-column" *ngIf="!isLoading">
   <!-- <alert></alert> -->
   <div class="d-flex w-100 p-0 justify-content-between">
     <div>
@@ -108,7 +108,7 @@
       {{ showComparison ? "Hide Comparison" : "Show Comparison" }}
     </button>
     <div *ngIf="showComparison">
-      <app-comparison-table> </app-comparison-table>
+      <app-comparison-table [symbol]="symbol"> </app-comparison-table>
     </div>
   </div>
 </div>
