@@ -57,6 +57,8 @@ export class ComparisonTableComponent implements OnInit {
   }
 
   trimNumber(number: string): string {
+    if (Math.abs(parseFloat(number)) < 1) return number
+
     const trimmed = parseFloat(number).toFixed(2)
     return parseFloat(trimmed).toLocaleString('en')
   }

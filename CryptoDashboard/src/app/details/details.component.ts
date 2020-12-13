@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router'
 import { CryptodetailsService } from './crytodetails.service'
 import { BinanceLatestPrice } from '../Interfaces/BinanceLatestPrice'
 import { Observable, throwError, interval } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import * as Highcharts from 'highcharts';
 import HC_stock from 'highcharts/modules/stock';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
-
+import { SymbolConversions } from '../Interfaces/SymbolConversions'
 HC_stock(Highcharts);
 
 @Component({
@@ -16,17 +17,16 @@ HC_stock(Highcharts);
 })
 export class DetailsComponent implements OnInit {
 
-
+  date: Date;
   isLoading: boolean = true;
   isInvalid: boolean = false;
   showComparison: boolean = false;
 
-  symbol: string
+  symbol: string = ""
   latestPrice: BinanceLatestPrice
 
   faCaretUp = faCaretUp
   faCaretDown = faCaretDown
-
 
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'stockChart'; // optional string, defaults to 'chart'
@@ -40,6 +40,28 @@ export class DetailsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private cryptodetailsService: CryptodetailsService) {
     this.symbol = this.activatedRoute.snapshot.paramMap.get('symbol');
+
+    setInterval(() => {
+      this.date = new Date()
+    }, 1000)
+
+  }
+
+  getSymbolName(): string {
+    const symbol = this.symbol
+    if (symbol.length < 6) return ""
+
+    const threeChar = symbol.substring(0, 3)
+    if (SymbolConversions[threeChar] != null) return SymbolConversions[threeChar];
+
+    const fourChar = symbol.substring(0, 4)
+    if (SymbolConversions[fourChar] != null) return SymbolConversions[fourChar];
+
+    return ""
+  }
+
+  getDateTime(): String {
+    return new Date().toLocaleString('en-GB').replace(",", "")
   }
 
   ngOnInit(): void {
@@ -89,14 +111,26 @@ export class DetailsComponent implements OnInit {
   }
 
   getCrytoDetails(symbol: string) {
-    this.cryptodetailsService.getLatestPrice(symbol).subscribe((data) => {
-      this.latestPrice = data
-      this.isLoading = false
-    }
-    )
+    this.cryptodetailsService.getLatestPrice(symbol)
+      .pipe(
+        catchError(err => {
+          this.isInvalid = true;
+          this.isLoading = false;
+          return throwError(err)
+        })
+      )
+      .subscribe((data) => {
+        this.latestPrice = data
+        this.isLoading = false
+      }
+      )
   }
 
+  //If greater than 1, trim and format
+  //else return itself
   trimNumber(number: string): string {
+    if (Math.abs(parseFloat(number)) < 1) return number
+
     const trimmed = parseFloat(number).toFixed(2)
     return parseFloat(trimmed).toLocaleString('en')
   }
