@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError, interval } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
-import { LatestPrice } from '../Interfaces/LatestPrice'
+import { BinanceLatestPrice } from '../Interfaces/BinanceLatestPrice'
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -21,25 +21,18 @@ export class CryptodetailsService {
     params: new HttpParams()
   };
 
-  //  headers= new HttpHeaders({
-  //   // 'Content-Type': 'application/json',
-  //   'Access-Control-Allow-Origin': '*'
-  // })
-
   binanceURL: string;
 
   constructor(private http: HttpClient) {
     this.binanceURL = environment.BINANCE_URL;
   }
 
-  getLatestPrice(symbol: string): Observable<LatestPrice> {
+  getLatestPrice(symbol: string): Observable<BinanceLatestPrice> {
     const params = new HttpParams().set('symbol', symbol);
-    // this.httpOptions.params = params
     this.httpOptions.params.set('symbol', symbol)
     const endpoint = "/api/v3/ticker/24hr"
-    console.log(this.httpOptions)
     const $response = this.http
-      .get<LatestPrice>(`${this.binanceURL}${endpoint}`, { params })
+      .get<BinanceLatestPrice>(`${this.binanceURL}${endpoint}`, { params })
       .pipe(catchError(error => {
         console.error("Error: ", error);
         return throwError(error)
@@ -54,7 +47,6 @@ export class CryptodetailsService {
       .set('interval', '1d');
 
     const endpoint = "/api/v3/klines"
-    console.log("HERE!")
     const $response = this.http
       .get<Object[]>(`${this.binanceURL}${endpoint}`, { params })
       .pipe(catchError(error => {

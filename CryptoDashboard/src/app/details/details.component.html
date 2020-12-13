@@ -99,12 +99,14 @@
     </div>
   </div>
 
-  <div style="height: 50px"></div>
-
   <div class="py-2">
-    <a (click)="toggleShowComparison()" routerLinkActive="active">{{
-      showComparison ? "Compare other sources" : "Hide other sources"
-    }}</a>
+    <button
+      type="button"
+      (click)="toggleShowComparison()"
+      class="btn btn-dark my-3"
+    >
+      {{ showComparison ? "Hide Comparison" : "Show Comparison" }}
+    </button>
     <div *ngIf="showComparison">
       <app-comparison-table> </app-comparison-table>
     </div>
