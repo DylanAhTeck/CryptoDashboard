@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
-import { CryptodetailsService } from './crytodetails.service'
+import { CryptodetailsService } from './cryptodetails.service'
 import { BinanceLatestPrice } from '../Interfaces/BinanceLatestPrice'
 import { Observable, throwError, interval } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
@@ -49,7 +49,7 @@ export class DetailsComponent implements OnInit {
     }, 1000)
 
     this.updateInterval = setInterval(() => {
-      this.getCrytoDetails(this.symbol)
+      this.getCryptoDetails(this.symbol)
     }, 1000 * 15)
   }
 
@@ -80,9 +80,8 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCrytoDetails(this.symbol)
+    this.getCryptoDetails(this.symbol)
 
-    //TODO: add this https://stackblitz.com/edit/highcharts-angular-stock-indicators
     this.getHighchartData(this.symbol).subscribe(value => {
       const data = []
       value.forEach(dataPoint => {
@@ -125,7 +124,7 @@ export class DetailsComponent implements OnInit {
     return this.cryptodetailsService.getKlineData(symbol)
   }
 
-  getCrytoDetails(symbol: string) {
+  getCryptoDetails(symbol: string) {
     this.cryptodetailsService.getLatestPrice(symbol)
       .pipe(
         catchError(err => {
@@ -141,8 +140,6 @@ export class DetailsComponent implements OnInit {
       )
   }
 
-  //If greater than 1, trim and format
-  //else return itself
   trimNumber(number: string): string {
     if (Math.abs(parseFloat(number)) < 1) return number
 

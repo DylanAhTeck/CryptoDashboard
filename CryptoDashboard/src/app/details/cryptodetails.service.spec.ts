@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { CryptodetailsService } from './crytodetails.service';
+import { CryptodetailsService } from './cryptodetails.service';
 
 describe('CrytodetailsService', () => {
   let service: CryptodetailsService;

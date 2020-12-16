@@ -3,7 +3,6 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<!-- *ngIf="!isInvalid && !isLoading" -->
 <div
   class="container px-lg-5 py-2 flex-column"
   *ngIf="!isLoading && !isInvalid"
@@ -11,16 +10,14 @@
   <!-- <alert></alert> -->
   <div class="d-flex w-100 p-0 justify-content-between">
     <div>
-      <h1 class="mb-0">
+      <h1 class="mb-0" id="symbol">
         {{ latestPrice.symbol }}
-        <!-- {{ description.ticker 1.00 }} -->
       </h1>
     </div>
     <div [ngClass]="isPositive() ? 'text-success' : 'text-danger'">
       <h1 class="mb-0">
         <fa-icon [icon]="isPositive() ? faCaretUp : faCaretDown"></fa-icon>
         ${{ trimNumber(latestPrice.lastPrice) }}
-        <!-- {{ latestPrice.last }} -->
       </h1>
     </div>
   </div>
