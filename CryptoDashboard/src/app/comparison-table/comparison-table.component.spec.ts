@@ -62,14 +62,79 @@ describe('ComparisonTableComponent', () => {
     expect(component).toBeDefined();
   });
 
+  it('should have these headers', () => {
+    const tableHeaders = Array.from(
+      tableEl.getElementsByClassName('header')
+    );
+    const headerClasses = [
+      'Source',
+      'Price',
+      'Price Change',
+      'Link'
+    ];
+
+    tableHeaders.forEach(header => {
+
+      expect(
+        headerClasses.some(item => header.innerHTML == item)
+      ).toBeTruthy();
+    });
+  })
+
   describe('when test with synchronous observable', () => {
     it('should not show test data before oninit', () => {
-      //expect(tableEl.textContent).toBe('', 'nothing displayed');
-      //expect(errorMessage()).toBeNull('should not show error element');
       expect(getBinanceLatestPriceSpy.calls.any()).toBe(false, 'getBLP not yet called');
       expect(getBTCLatestPriceSpy.calls.any()).toBe(false, 'getBTC not yet called');
       expect(tbodyEl.textContent).toBe('', 'no rows in table body');
-      //expect(getBinanceLatestPriceSpy.calls.any()).toEqual(false)
     })
+
+    it('should show table data after component initialized', () => {
+      fixture.detectChanges();  // onInit()
+
+      // sync spy result shows testQuote immediately after init
+      //expect(tbodyEl.getElementsByTagName).toBe(testQuote);
+      expect(getBTCLatestPriceSpy.calls.any()).toBe(true, 'getBTC called');
+    });
+
+    it('should have API price data', () => {
+      fixture.detectChanges();  // onInit()
+
+      const prices = Array.from(
+        tbodyEl.getElementsByClassName('price')
+      );
+      const validPrices = [
+        testBTCData.lastPrice,
+        testBinanceData.lastPrice
+      ]
+
+      expect(prices.length).toEqual(validPrices.length);
+
+      prices.forEach(price => {
+        expect(
+          validPrices.some(validPrice => price.innerHTML.match(validPrice))
+        ).toBeTruthy();
+      });
+    });
+
+    it('should have API price change data or N/A', () => {
+      fixture.detectChanges();  // onInit()
+
+      const priceChanges = Array.from(
+        tbodyEl.getElementsByClassName('priceChange')
+      );
+
+      const validPriceChanges = [
+        testBinanceData.priceChange,
+        "N/A"
+      ]
+
+      priceChanges.forEach(priceChange => {
+        console.info(priceChange)
+        expect(
+          validPriceChanges.some(validPriceChange => priceChange.innerHTML.match(validPriceChange)
+          )
+        ).toBeTruthy();
+      });
+    });
   })
 })

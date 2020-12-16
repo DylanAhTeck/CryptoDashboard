@@ -3,24 +3,24 @@
   <table class="table bg-white w-100 table-hover">
     <thead class="bg-trademarkcolor text-light">
       <tr>
-        <th scope="col">Source</th>
-        <th scope="col">Price</th>
-        <th scope="col">Price Change</th>
-        <th scope="col">Link</th>
+        <th scope="col" class="header">Source</th>
+        <th scope="col" class="header">Price</th>
+        <th scope="col" class="header">Price Change</th>
+        <th scope="col" class="header">Link</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let row of tableData">
-        <th scope="row">
+        <th scope="row" class="source">
           <a [href]="row.sourceUrl">
             {{ row.source }}
           </a>
         </th>
-        <td>${{ trimNumber(row.price) }} AUD</td>
-        <td>
+        <td class="price">${{ trimNumber(row.price) }} AUD</td>
+        <td class="priceChange">
           {{ row.priceChange != null ? trimNumber(row.priceChange) : "N/A" }}
         </td>
-        <td>
+        <td class="link">
           <a [href]="row.link">{{ row.link }}</a>
         </td>
       </tr>
