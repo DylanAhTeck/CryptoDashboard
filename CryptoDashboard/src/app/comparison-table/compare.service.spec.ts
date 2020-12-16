@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { CompareService } from './compare.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BTCLatestPrice } from '../Interfaces/BTCLatestPrice';
+import { BinanceLatestPrice } from '../Interfaces/BinanceLatestPrice';
 
 describe('CompareService', () => {
   let service: CompareService;
@@ -41,7 +42,7 @@ describe('CompareService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('can test HttpClient.get', () => {
+  it('can test HttpClient.get BTCLatestPrice', () => {
     const testData: BTCLatestPrice = {
       marketId: 'BTCAUD',
       bestBid: '100',
@@ -70,6 +71,40 @@ describe('CompareService', () => {
     // Subscribe callback asserts that correct data was returned.
     req.flush(testData);
   });
+
+  it('can test HttpClient.get BinanceLatestPrice', () => {
+    const testData: BinanceLatestPrice = {
+      symbol: 'ETCAUD',
+      priceChange: '123',
+      priceChangePercent: '14',
+      lastPrice: '20',
+      bidPrice: '21',
+      openPrice: '24',
+      highPrice: '29',
+      lowPrice: '15',
+      volume: '1500'
+    };
+    const testUrl = '/test'
+    // Make an HTTP GET request
+    httpClient.get<BinanceLatestPrice>(testUrl)
+      .subscribe(data =>
+        // When observable resolves, result should match test data
+        expect(data).toEqual(testData)
+      );
+
+    // The following `expectOne()` will match the request's URL.
+    // If no requests or multiple requests matched that URL
+    // `expectOne()` would throw.
+    const req = httpTestingController.expectOne('/test');
+
+    // Assert that the request is a GET.
+    expect(req.request.method).toEqual('GET');
+
+    // Respond with mock data, causing Observable to resolve.
+    // Subscribe callback asserts that correct data was returned.
+    req.flush(testData);
+  });
+
 
   it('can test for 404 error', () => {
     const emsg = 'deliberate 404 error';
